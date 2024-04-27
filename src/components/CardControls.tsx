@@ -2,7 +2,7 @@
 
 import Button, { ButtonTheme } from "./Button";
 import InputNumber from "./InputNumber";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
 interface CardControlsProps {

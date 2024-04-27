@@ -21,14 +21,21 @@ interface ButtonProps {
 }
 
 const Button = (props: ButtonProps) => {
+  const bgActiveColor = "bg-lime-600";
+  const bgActiveColorHover = "hover:bg-lime-400";
+  const bgBorder = "border-lime-600";
+  const bgBorderHover = "hover:border-lime-400";
+  const textColor = "text-lime-600";
+  const textColorHover = "hover:text-lime-400";
+
   const styles = {
-    [ButtonTheme.active]: `bg-[var(--activeColor)] text-white hover:bg-[var(--activeColorHover)]`,
-    [ButtonTheme.default]: `tx-[var(--activeColor)] hover:tx-[var(--activeColorHover)] hover:border-[var(--activeColorHover)]`,
+    [ButtonTheme.active]: `${bgActiveColor} text-white ${bgActiveColorHover}`,
+    [ButtonTheme.default]: `${textColor} ${textColorHover} ${bgBorderHover}`,
   }[props.theme || ButtonTheme.default];
 
   return (
     <button
-      className={`${styles} rounded-md py-2 px-3 border border-solid ${ACTIVE_B_COLOR} transition-all`}
+      className={`${styles} rounded-md py-2 px-3 border border-solid ${bgBorder} transition-all min-w-28`}
       onClick={props.onClick}
     >
       {props.text}

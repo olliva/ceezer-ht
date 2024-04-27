@@ -5,6 +5,12 @@ import "./globals.css";
 import Providers from "./providers";
 import Header from "@/components/Header";
 import PageWrapper from "@/components/PageWrapper";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import getProductsParams from "@/queries/getProductsParams";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +24,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(getProductsParams());
+
   return (
     <html lang="en">
       <body className={`${inter.className} font-sans box-border`}>
         <Providers>
           <Header />
-          <PageWrapper>{children}</PageWrapper>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <PageWrapper>{children}</PageWrapper>
+          </HydrationBoundary>
         </Providers>
       </body>
     </html>

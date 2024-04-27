@@ -1,8 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-* {
-  --activeColor: "lime-600";
-  --activeColorHover: "lime-400";
-}
