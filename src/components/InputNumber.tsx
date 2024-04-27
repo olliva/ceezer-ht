@@ -1,18 +1,23 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 interface InputNumberProps {
   min: number;
   max: number;
   step: number;
+  value: number;
   onChange: (param: number) => void;
 }
 const InputNumber = (props: InputNumberProps) => {
-  const [inputVal, setInputVal] = useState(props.min);
+  const [inputVal, setInputVal] = useState(props.value);
   const minInKG = props.min * 100;
   const maxInKG = props.max * 100;
   const stepInKG = props.step * 100;
+
+  useEffect(() => {
+    setInputVal(props.value);
+  }, [props.value]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newVal = parseFloat(e.target.value);
@@ -21,7 +26,6 @@ const InputNumber = (props: InputNumberProps) => {
   };
 
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("blur");
     const newValInKG = Math.floor(parseFloat(e.target.value) * 100);
 
     if (newValInKG > maxInKG) {

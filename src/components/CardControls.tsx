@@ -3,6 +3,7 @@
 import Button, { ButtonTheme } from "./Button";
 import InputNumber from "./InputNumber";
 import { ChangeEvent, useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
 
 interface CardControlsProps {
   min: number;
@@ -11,15 +12,37 @@ interface CardControlsProps {
   productId: string;
 }
 
+export interface State {
+  [id: string]: number;
+}
+
 const CardControls = (props: CardControlsProps) => {
   const [selectedVolume, setSelectedVolume] = useState(props.min);
-  const [isAddedToCart, setAddedToCart] = useState(false);
+  const [cart, setCart] = useLocalStorage<State>(
+    "cart",
+    {},
+    { initializeWithValue: false }
+  );
+
+  const isAddedToCart = Boolean(cart[props.productId]);
 
   const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
-    setAddedToCart((prev) => !prev);
+    if (!isAddedToCart) {
+      setCart((prev) => ({ ...prev, [props.productId]: selectedVolume }));
+    } else {
+      setCart((prev) => {
+        const { [props.productId]: deletedProduct, ...rest } = prev;
+
+        return rest;
+      });
+    }
   };
   const handleInputChange = (param: number) => {
     setSelectedVolume(param);
+
+    if (isAddedToCart) {
+      setCart((prev) => ({ ...prev, [props.productId]: param }));
+    }
   };
 
   return (
@@ -28,6 +51,7 @@ const CardControls = (props: CardControlsProps) => {
         min={props.min}
         max={props.max}
         step={props.step}
+        value={cart[props.productId] || props.min}
         onChange={handleInputChange}
       />
       <Button

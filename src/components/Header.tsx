@@ -3,11 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PageWrapper from "./PageWrapper";
-import { ACTIVE_COLOR, ACTIVE_COLOR_HOVER } from "@/constants";
+import { ACTIVE_TEXT_COLOR, ACTIVE_TEXT_COLOR_HOVER } from "@/constants";
+import HeaderCartIcon from "./HeaderCartIcon";
+import React from "react";
 
 interface HeaderLinkProps {
   path: string;
-  name: string;
+  name: React.ReactNode | React.ReactNode[];
   isActive?: boolean;
 }
 const HeaderLink = (props: HeaderLinkProps) => {
@@ -16,7 +18,7 @@ const HeaderLink = (props: HeaderLinkProps) => {
       href={props.path}
       className={`${
         props.isActive &&
-        `text-${ACTIVE_COLOR} hover:text-${ACTIVE_COLOR_HOVER}`
+        `${ACTIVE_TEXT_COLOR} hover:${ACTIVE_TEXT_COLOR_HOVER}`
       } mr-2 transition-all`}
     >
       {props.name}
@@ -34,7 +36,7 @@ const Header = () => {
     },
     {
       path: "/cart",
-      name: "Cart",
+      name: ["Cart", " ", <HeaderCartIcon />],
       isActive: currentPath === "/cart",
     },
   ];
