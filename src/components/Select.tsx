@@ -20,6 +20,7 @@ const Select = (props: SelectProps) => {
       onChange={props.onChange}
       defaultValue=""
       key=""
+      className="border border-solid border-slate-300 rounded-md px-1 py-2"
     >
       <option value="">{props.defaultLabel}</option>
       {props.options.map((option) => (

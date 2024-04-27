@@ -6,7 +6,7 @@ interface CardsListProps {
 
 const CardsList = (props: CardsListProps) => {
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap -mx-2">
       {props.items.map((item) => (
         <Card key={item.id} {...item} />
       ))}

@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+
 import Providers from "./providers";
+import Header from "@/components/Header";
+import PageWrapper from "@/components/PageWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +20,10 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} font-sans box-border`}>
         <Providers>
-          <nav>
-            <Link href="/">Catalogue</Link>
-            <Link href="/cart">Cart</Link>
-          </nav>
-          {children}
+          <Header />
+          <PageWrapper>{children}</PageWrapper>
         </Providers>
       </body>
     </html>

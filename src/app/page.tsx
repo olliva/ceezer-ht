@@ -1,4 +1,5 @@
 import { CardProps } from "@/components/Card";
+import Title from "@/components/Title";
 import FiltersAndCards from "@/components/FiltersAndCards";
 import getProductsParams from "@/queries/getProductsParams";
 import {
@@ -19,6 +20,7 @@ export default async function Home() {
   const data: APIResponce = [];
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
+      <Title>Catalogue</Title>
       <FiltersAndCards />
     </HydrationBoundary>
   );

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import InputNumber from "./InputNumber";
+import CardControls from "./CardControls";
 
 export interface CardProps {
   id: string;
@@ -17,8 +17,8 @@ export interface CardProps {
 
 const Card = (props: CardProps) => {
   return (
-    <div className="border border-solid border-slate-300 rounded-md p-4 w-80 box-border m-5 relative">
-      <div className="flex mb-5">
+    <div className="border border-solid border-slate-300 rounded-md p-4 w-80 box-border m-2 relative">
+      <div className="flex mb-3">
         <div className="size-24 rounded-md overflow-hidden relative">
           <Image
             src={props.image}
@@ -41,10 +41,11 @@ const Card = (props: CardProps) => {
         Available(t): {props.offered_volume_in_tons}
         Price(t): ${props.price_per_ton}
       </div>
-      <InputNumber
+      <CardControls
         min={props.distribution_weight}
         max={props.offered_volume_in_tons}
         step={props.distribution_weight}
+        productId={props.id}
       />
     </div>
   );
