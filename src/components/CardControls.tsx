@@ -58,6 +58,7 @@ const CardControls = (props: CardControlsProps) => {
         text={isAddedToCart ? "Delete" : "Add to cart"}
         theme={isAddedToCart ? ButtonTheme.active : ButtonTheme.default}
         onClick={handleButtonClick}
+        className="float-right"
       />
     </div>
   );

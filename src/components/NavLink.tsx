@@ -13,7 +13,9 @@ const NavLink = (props: NavLinkProps) => {
     <Link
       href={props.path}
       className={`${
-        props.isActive && `${activeColor} ${activeColorHover}`
+        props.isActive
+          ? `${activeColor} ${activeColorHover}`
+          : "hover:text-slate-600"
       } transition-all`}
     >
       {props.children}

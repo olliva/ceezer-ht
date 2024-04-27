@@ -18,6 +18,7 @@ interface ButtonProps {
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   text: string;
   theme?: ButtonTheme;
+  className?: string;
 }
 
 const Button = (props: ButtonProps) => {
@@ -35,7 +36,9 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
-      className={`${styles} rounded-md py-2 px-3 border border-solid ${bgBorder} transition-all min-w-28`}
+      className={`${styles} rounded-md py-2 px-3 border border-solid ${bgBorder} transition-all min-w-36 ${
+        props.className || ""
+      }`}
       onClick={props.onClick}
     >
       {props.text}

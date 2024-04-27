@@ -13,9 +13,11 @@ const Header = () => {
     <header className="border-b border-solid border-slate-300 py-5 bg-orange-50">
       <PageWrapper>
         <nav>
-          <NavLink key="/" path="/" isActive={currentPath === "/"}>
-            Catalogue
-          </NavLink>
+          <span className="mr-4">
+            <NavLink key="/" path="/" isActive={currentPath === "/"}>
+              Catalogue
+            </NavLink>
+          </span>
           <NavLink key="/cart" path="/cart" isActive={currentPath === "/cart"}>
             Cart <HeaderCartIcon />
           </NavLink>
