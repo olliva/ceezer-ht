@@ -43,7 +43,7 @@ const CardControls = (props: CardControlsProps) => {
         onChange={handleInputChange}
       />
       <Button
-        text={isAddedToCart ? "Delete" : "Add to cart"}
+        text={isAddedToCart ? "Remove" : "Add to cart"}
         theme={isAddedToCart ? ButtonTheme.default : ButtonTheme.active}
         onClick={handleButtonClick}
         className="float-right"

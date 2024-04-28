@@ -1,22 +1,18 @@
 "use client";
-import { useLocalStorage } from "usehooks-ts";
-import { State } from "./CardControls";
+
 import { CardProps } from "./Card";
 import { useQuery } from "@tanstack/react-query";
 import getProductsParams from "@/queries/getProductsParams";
 import { costRounded } from "@/utils";
+import { useCart } from "@/providers/CartContextProvider";
 
 const CartListSum = () => {
-  const [cart, setCart] = useLocalStorage<State>(
-    "cart",
-    {},
-    { initializeWithValue: false }
-  );
+  const { cartData } = useCart();
   const { data }: { data: CardProps[] | undefined } = useQuery(
     getProductsParams()
   );
 
-  const sumInfo = Object.entries(cart).reduce(
+  const sumInfo = Object.entries(cartData).reduce(
     (prev, [key, value]) => {
       const itemData = data?.find((item) => item.id.toString() === key);
 
@@ -35,11 +31,18 @@ const CartListSum = () => {
   const roundedCost = costRounded(sumInfo[0]);
 
   return (
-    <div>
-      <div>Total volume: {sumInfo[1]}t</div>
-
-      <div>Total cost: ${roundedCost}</div>
-      <div>Average price: {costRounded(roundedCost / sumInfo[1])} ($/t)</div>
+    <div className="py-4">
+      <div className="font-bold text-2xl">
+        <span>Total cost:</span> ${roundedCost}
+      </div>
+      <div>
+        <span className="text-slate-600">Total volume:</span>{" "}
+        {costRounded(sumInfo[1])}t
+      </div>
+      <div>
+        <span className="text-slate-600">Average price:</span>{" "}
+        {costRounded(roundedCost / sumInfo[1])} ($/t)
+      </div>
     </div>
   );
 };

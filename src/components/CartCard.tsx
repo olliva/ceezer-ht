@@ -6,7 +6,7 @@ import getProductsParams from "@/queries/getProductsParams";
 import CardControls from "./CardControls";
 
 interface CartCardProps {
-  productId: string;
+  productId: number;
   volume: number;
 }
 
@@ -15,9 +15,7 @@ const CartCard = (props: CartCardProps) => {
     getProductsParams()
   );
 
-  const productData = data?.find(
-    (item) => item.id.toString() === props.productId
-  );
+  const productData = data?.find((item) => item.id === props.productId);
 
   if (!productData) {
     return;

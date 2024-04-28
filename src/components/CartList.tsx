@@ -1,19 +1,14 @@
 "use client";
 
-import { useLocalStorage } from "usehooks-ts";
-import { State } from "./CardControls";
+import { useCart } from "@/providers/CartContextProvider";
 import CartCard from "./CartCard";
 import CartListSum from "./CartListSum";
 import NavLink from "./NavLink";
 
 const CartList = () => {
-  const [cart, setCart] = useLocalStorage<State>(
-    "cart",
-    {},
-    { initializeWithValue: false }
-  );
+  const { cartData } = useCart();
 
-  if (Object.keys(cart).length === 0) {
+  if (Object.keys(cartData).length === 0) {
     return (
       <p>
         Cart is empty. You can return{" "}
@@ -28,8 +23,8 @@ const CartList = () => {
   return (
     <>
       <div>
-        {Object.entries(cart).map(([key, value]) => (
-          <CartCard key={key} productId={key} volume={value} />
+        {Object.entries(cartData).map(([key, value]) => (
+          <CartCard key={key} productId={parseInt(key)} volume={value} />
         ))}
       </div>
       <CartListSum />

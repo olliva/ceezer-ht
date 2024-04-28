@@ -2,7 +2,7 @@ import Image from "next/image";
 import CardControls from "./CardControls";
 
 export interface CardProps {
-  id: string;
+  id: number;
   name: string;
   country: string;
   image: string;
