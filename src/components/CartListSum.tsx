@@ -4,6 +4,7 @@ import { State } from "./CardControls";
 import { CardProps } from "./Card";
 import { useQuery } from "@tanstack/react-query";
 import getProductsParams from "@/queries/getProductsParams";
+import { costRounded } from "@/utils";
 
 const CartListSum = () => {
   const [cart, setCart] = useLocalStorage<State>(
@@ -15,17 +16,32 @@ const CartListSum = () => {
     getProductsParams()
   );
 
-  const sumPrice = Object.entries(cart).reduce((prev, [key, value]) => {
-    const itemData = data?.find((item) => item.id.toString() === key);
+  const sumInfo = Object.entries(cart).reduce(
+    (prev, [key, value]) => {
+      const itemData = data?.find((item) => item.id.toString() === key);
 
-    if (!itemData) {
-      return prev;
-    }
+      if (!itemData) {
+        return prev;
+      }
 
-    return prev + value * itemData.price_per_ton;
-  }, 0);
+      const cost = prev[0] + value * itemData.price_per_ton;
+      const volume = prev[1] + value;
 
-  return <div>Summary: ${Math.round(sumPrice * 100) / 100}</div>;
+      return [cost, volume];
+    },
+    [0, 0]
+  );
+
+  const roundedCost = costRounded(sumInfo[0]);
+
+  return (
+    <div>
+      <div>Total volume: {sumInfo[1]}t</div>
+
+      <div>Total cost: ${roundedCost}</div>
+      <div>Average price: {costRounded(roundedCost / sumInfo[1])} ($/t)</div>
+    </div>
+  );
 };
 
 export default CartListSum;

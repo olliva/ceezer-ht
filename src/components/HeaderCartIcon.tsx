@@ -1,16 +1,10 @@
 "use client";
-import { State } from "./CardControls";
-
-import { useLocalStorage } from "usehooks-ts";
+import { useCart } from "@/providers/CartContextProvider";
 
 const HeaderCartIcon = () => {
-  const [cart] = useLocalStorage<State>(
-    "cart",
-    {},
-    { initializeWithValue: false }
-  );
+  const { cartData } = useCart();
 
-  return `(${Object.keys(cart).length})`;
+  return `(${Object.keys(cartData).length})`;
 };
 
 export default HeaderCartIcon;

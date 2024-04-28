@@ -3,45 +3,33 @@
 import Button, { ButtonTheme } from "./Button";
 import InputNumber from "./InputNumber";
 import { useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useCart } from "@/providers/CartContextProvider";
 
 interface CardControlsProps {
   min: number;
   max: number;
   step: number;
-  productId: string;
-}
-
-export interface State {
-  [id: string]: number;
+  productId: number;
 }
 
 const CardControls = (props: CardControlsProps) => {
   const [selectedVolume, setSelectedVolume] = useState(props.min);
-  const [cart, setCart] = useLocalStorage<State>(
-    "cart",
-    {},
-    { initializeWithValue: false }
-  );
+  const { cartData, addItem, deleteItem, changeValue } = useCart();
 
-  const isAddedToCart = Boolean(cart[props.productId]);
+  const isAddedToCart = Boolean(cartData[props.productId]);
 
   const handleButtonClick = (e: React.MouseEvent<HTMLElement>) => {
     if (!isAddedToCart) {
-      setCart((prev) => ({ ...prev, [props.productId]: selectedVolume }));
+      addItem && addItem(props.productId, selectedVolume);
     } else {
-      setCart((prev) => {
-        const { [props.productId]: deletedProduct, ...rest } = prev;
-
-        return rest;
-      });
+      deleteItem && deleteItem(props.productId);
     }
   };
   const handleInputChange = (param: number) => {
     setSelectedVolume(param);
 
     if (isAddedToCart) {
-      setCart((prev) => ({ ...prev, [props.productId]: param }));
+      changeValue && changeValue(props.productId, param);
     }
   };
 
@@ -51,12 +39,12 @@ const CardControls = (props: CardControlsProps) => {
         min={props.min}
         max={props.max}
         step={props.step}
-        value={cart[props.productId] || props.min}
+        value={cartData[props.productId] || props.min}
         onChange={handleInputChange}
       />
       <Button
         text={isAddedToCart ? "Delete" : "Add to cart"}
-        theme={isAddedToCart ? ButtonTheme.active : ButtonTheme.default}
+        theme={isAddedToCart ? ButtonTheme.default : ButtonTheme.active}
         onClick={handleButtonClick}
         className="float-right"
       />
