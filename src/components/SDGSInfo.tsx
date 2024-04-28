@@ -6,7 +6,7 @@ const SDGSInfo = (props: SGDSTagsListProps) => {
   }
 
   return (
-    <div className="my-3">
+    <div className="mb-3">
       <h3 className="font-bold text-sm">SDGS Goals ({props.items.length}):</h3>
       <SDGSTagsList items={props.items} />
     </div>

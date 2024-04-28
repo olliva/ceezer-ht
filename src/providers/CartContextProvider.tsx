@@ -32,11 +32,7 @@ const CartContext = createContext<CartContextData>({
   cartData: {},
 });
 
-export const CartContextProvider = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+export const useCartState = () => {
   const [cartData, setCartData] = useState<CartStoreData>({});
   const previousValue = usePreviousValue({});
 
@@ -75,12 +71,18 @@ export const CartContextProvider = ({
     window.localStorage.setItem("cart", JSON.stringify(cartData));
   }, [cartData]);
 
+  return { cartData, addItem, deleteItem, changeValue };
+};
+
+export const CartContextProvider = ({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) => {
+  const cartState = useCartState();
+
   return (
-    <CartContext.Provider
-      value={{ cartData, addItem, deleteItem, changeValue }}
-    >
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={cartState}>{children}</CartContext.Provider>
   );
 };
 

@@ -8,7 +8,7 @@ export interface SGDSTagsListProps {
 }
 
 const SDGSTagsList = (props: SGDSTagsListProps) => {
-  const isLongView = props.items.length > 3;
+  const isLongView = props.items.length > 7;
   const [isOpened, setIsOpened] = useState(false);
   const classesForLongView = {
     parent: `bg-white ${isOpened ? "overflow-visible" : "overflow-hidden"}`,
@@ -21,17 +21,18 @@ const SDGSTagsList = (props: SGDSTagsListProps) => {
     setIsOpened((prev) => !prev);
   };
 
+  if (isLongView) {
+    processedList.push(
+      <SDGSTag
+        key={SDGSCustomTheme.more}
+        val={SDGSCustomTheme.more}
+        opened={isOpened}
+        onClick={handleMoreClick}
+      />
+    );
+  }
+
   props.items.forEach((goal, index) => {
-    if (index === 3) {
-      processedList.push(
-        <SDGSTag
-          key={SDGSCustomTheme.more}
-          val={SDGSCustomTheme.more}
-          opened={isOpened}
-          onClick={handleMoreClick}
-        />
-      );
-    }
     processedList.push(<SDGSTag key={goal} val={goal} />);
   });
 

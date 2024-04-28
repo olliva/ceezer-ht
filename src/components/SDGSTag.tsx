@@ -23,7 +23,8 @@ const SDGSColors: { [id: number]: string } = {
 };
 
 const moreStyles =
-  "text-lime-600 hover:text-lime-400 transition-all cursor-pointer float-right mb-0 border-lime-600 hover:border-lime-400 px-1";
+  "text-lime-600 hover:text-lime-400 cursor-pointer float-right mb-0 border-lime-600 hover:border-lime-400";
+
 interface baseSDGSTag {
   val: number;
 }
@@ -37,9 +38,9 @@ const SDGSTag = (props: baseSDGSTag | moreTag) => {
   const goalTheme =
     props.val === SDGSCustomTheme.more
       ? moreStyles
-      : `${SDGSColors[props.val] || SDGSColors[1]} px-2`;
+      : `${SDGSColors[props.val] || SDGSColors[1]}`;
 
-  const containerStyles = `inline-block rounded-md py-1 border border-solid m-1 ${goalTheme}`;
+  const containerStyles = `inline-block rounded-md py-1 border border-solid m-1 w-8 text-center transition-all ${goalTheme}`;
 
   if (props.val === SDGSCustomTheme.more) {
     return (
@@ -49,7 +50,7 @@ const SDGSTag = (props: baseSDGSTag | moreTag) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
-            className="w-5 h-5"
+            className="w-5 h-5 mx-auto"
           >
             <path
               fillRule="evenodd"
@@ -62,7 +63,15 @@ const SDGSTag = (props: baseSDGSTag | moreTag) => {
     );
   }
 
-  return <div className={containerStyles}>Goal {props.val}</div>;
+  return (
+    <a
+      href={`https://sdgs.un.org/goals/goal${props.val}`}
+      target="_blank"
+      className={`${containerStyles} hover:opacity-60`}
+    >
+      {props.val}
+    </a>
+  );
 };
 
 export default SDGSTag;

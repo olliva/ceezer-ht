@@ -14,10 +14,13 @@ const FiltersAndCards = () => {
   );
 
   const [visibleCards, setVisibleCards] = useState(data);
-
   const countriesMap = new Map<string, string>();
+  let minPrice = Number.POSITIVE_INFINITY;
+  let maxPrice = 0;
 
   data?.forEach((item) => {
+    minPrice = Math.min(minPrice, item.price_per_ton);
+    maxPrice = Math.max(maxPrice, item.price_per_ton);
     countriesMap.set(item.country.toLowerCase(), item.country);
   });
 

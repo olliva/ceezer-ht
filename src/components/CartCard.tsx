@@ -47,7 +47,7 @@ const CartCard = (props: CartCardProps) => {
                 Math.round(productData.price_per_ton * props.volume * 100) / 100
               }`,
             ],
-            ["Erliest delivery date", productData.earliest_delivery],
+            ["Earliest delivery date", productData.earliest_delivery],
           ]}
           classString="py-3"
         />

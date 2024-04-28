@@ -38,7 +38,7 @@ const Card = (props: CardProps) => {
         </div>
       </div>
 
-      <p className="line-clamp-3">{props.description}</p>
+      <p className="line-clamp-3 mb-3">{props.description}</p>
       <SDGSInfo items={props.sdgs} />
       <InfoList
         lines={[
