@@ -1,10 +1,10 @@
 import CartList from "@/components/CartList";
-import Title from "@/components/Title";
+import Title, { TitleSize } from "@/components/Title";
 
 const Cart = () => {
   return (
     <>
-      <Title>Cart</Title>
+      <Title size={TitleSize.l}>Cart</Title>
       <CartList />
     </>
   );

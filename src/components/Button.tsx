@@ -1,14 +1,5 @@
 "use client";
 
-import {
-  ACTIVE_TEXT_COLOR,
-  ACTIVE_TEXT_COLOR_HOVER,
-  ACTIVE_BG_COLOR,
-  ACTIVE_BG_COLOR_HOVER,
-  ACTIVE_B_COLOR,
-  ACTIVE_B_COLOR_HOVER,
-} from "@/constants";
-
 export enum ButtonTheme {
   default = "default",
   active = "active",

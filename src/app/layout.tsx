@@ -30,11 +30,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} font-sans box-border`}>
+      <body className={`${inter.className} font-sans box-border min-w-[688px]`}>
         <Providers>
           <Header />
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <PageWrapper>{children}</PageWrapper>
+            <div className="pb-20">
+              <PageWrapper>{children}</PageWrapper>
+            </div>
           </HydrationBoundary>
         </Providers>
       </body>

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import CardControls from "./CardControls";
+import SDGSInfo from "./SDGSInfo";
+import InfoList from "./InfoList";
 
 export interface CardProps {
   id: number;
@@ -15,23 +17,9 @@ export interface CardProps {
   description: string;
 }
 
-interface infoProps {
-  lines: [key: string, value: string | number][];
-}
-const InfoProps = (props: infoProps) => {
-  return (
-    <div className="text-sm">
-      {props.lines.map((line) => (
-        <span key={line[0]} className="w-36 inline-block -mr-px">
-          <span className="text-slate-600">{line[0]}:</span> {line[1]}
-        </span>
-      ))}
-    </div>
-  );
-};
 const Card = (props: CardProps) => {
   return (
-    <div className="border border-solid border-slate-300 rounded-md p-4 w-80 box-border m-2 relative">
+    <div className="border border-solid border-slate-300 rounded-md p-4 w-80 box-border m-2 relative flex-col flex">
       <div className="flex mb-3">
         <div className="size-24 rounded-md overflow-hidden relative">
           <Image
@@ -51,16 +39,14 @@ const Card = (props: CardProps) => {
       </div>
 
       <p className="line-clamp-3">{props.description}</p>
-      <div className="border-slate-300 border-t -mr-4 -ml-4 p-4 mt-5">
-        <dl className="text-sm">
-          <InfoProps
-            lines={[
-              ["Available(t)", props.offered_volume_in_tons],
-              ["Price(t)", `$${props.price_per_ton}`],
-            ]}
-          />
-        </dl>
-      </div>
+      <SDGSInfo items={props.sdgs} />
+      <InfoList
+        lines={[
+          ["Available(t)", props.offered_volume_in_tons],
+          ["Price(t)", `$${props.price_per_ton}`],
+        ]}
+        classString="border-slate-300 border-t -mr-4 -ml-4 p-4 mt-auto text-s"
+      />
       <CardControls
         min={props.distribution_weight}
         max={props.offered_volume_in_tons}
